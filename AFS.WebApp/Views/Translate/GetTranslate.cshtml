@@ -1,0 +1,33 @@
+﻿@model TextOfTranslate
+<div>
+
+    <div class="form-group mb-3">
+        <label for="text">Write text to translate</label>
+        <textarea class="form-control" asp-for="text" rows="3"></textarea>
+    </div>
+    <div class="form-group mb-3">
+        <label for="translated">Translated</label>
+        <textarea class="form-control" id="translated" rows="3"></textarea>
+    </div>
+    <div class="mb-3">
+        <button  onclick="Translate()" class="btn btn-primary">Translate</button>
+    </div>
+</div>
+<script>
+    function Translate() {
+        $.ajax({
+            type: "POST",
+            url: "/translate/GetTranslate",
+            data: { "text": $("#text").val() },
+            success: function(response) {
+                if (response.isSuccess) {
+                    console.log(response.data);
+                    $("#translated").val(response.data.dataTranslated);
+                }
+                else {
+                    alert(response.message);
+                }
+            }
+        });
+    }
+</script>

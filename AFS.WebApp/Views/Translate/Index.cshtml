@@ -1,0 +1,39 @@
+﻿@using AFS.Service.Helpers
+@model IQueryable<LogBusiness>
+<table id="example" class="table table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th>User</th>
+                <th>Response Data</th>
+                <th>Result Data</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>@item.UserEmail</td>
+                <td>@item.CallData.Replace("{","").Replace("}","")</td>
+                <td>@item.ResultData.Replace("{","").Replace("}","")</td>
+                <td> @DateHelper.GetDateFromUTC(item.CreateDate).ToString("MM/dd/yyyy")</td>
+            </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>User</th>
+                <th>Response Data</th>
+                <th>Result Data</th>
+                <th>Date</th>
+            </tr>
+        </tfoot>
+    </table>
+
+@section scripts {
+      <script>
+$(document).ready(function () {
+    $('#example').DataTable();
+});
+</script>
+  }
